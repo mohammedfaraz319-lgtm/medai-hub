@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+{% block body %}
+<section style="padding-top:40px"><div class="wrap">
+  <h1 class="title">Your analysis history</h1>
+  <p class="sub">Every result you generate while logged in is saved here.</p>
+  <div class="card" style="overflow-x:auto">
+  {% if rows %}
+    <table>
+      <thead><tr><th>Date</th><th>Type</th><th>Result</th><th></th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr><td>{{ r['created_at'] }}</td><td>{{ r['kind'] }}</td><td>{{ r['summary'] }}</td>
+            <td><a class="btn sm sec" href="{{ url_for('report', rid=r['id']) }}">View report</a></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p style="text-align:center;color:var(--muted)">No analyses yet. <a href="{{ url_for('analysis') }}">Run your first analysis →</a></p>
+  {% endif %}
+  </div>
+</div></section>
+{% endblock %}

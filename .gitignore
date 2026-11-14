@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+instance/*.db
+instance/*.sqlite
+models/*.joblib
+models/*.json
+.pytest_cache/
+.DS_Store
+.idea/
+.vscode/

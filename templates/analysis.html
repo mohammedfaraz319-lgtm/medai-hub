@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}AI Analysis{% endblock %}
+{% block body %}
+<section style="padding-top:40px"><div class="wrap">
+ <div class="hub">
+  <h1>Specialist AI Analysis Hub</h1>
+  <p class="sub" style="margin-bottom:18px">Select the type of disease or analysis you want to perform.</p>
+  <div class="disclaimer">⚕️ Preliminary AI insight only - not a diagnosis. Please consult a qualified doctor.</div>
+
+  <select id="picker" class="picker" aria-label="Analysis type">
+    <option value="skin">🧑‍⚕️ Skin (Dermatology)</option>
+    <option value="symptoms">🩺 Symptoms (General Physician)</option>
+    <option value="diabetes">🩸 Diabetes Risk (Endocrinologist)</option>
+    <option value="heart">❤️ Heart Risk (Cardiologist)</option>
+  </select>
+
+  <!-- ============ SKIN ============ -->
+  <div class="card panel" id="p-skin">
+    <h3>🧑‍⚕️ Dermatologist AI</h3>
+    <p class="hint">Upload a clear photo of a skin lesion.</p>
+    <div class="row">
+      <label class="btn sm" for="skinfile" style="cursor:pointer">Choose a File</label>
+      <input id="skinfile" type="file" accept="image/*" hidden>
+      <button class="btn sm" id="cambtn" type="button">Live Camera 📷</button>
+    </div>
+    <video id="cam" autoplay playsinline muted></video>
+    <div class="row"><button class="btn sm" id="snap" type="button" style="display:none">Capture photo</button></div>
+    <canvas id="canvas" hidden></canvas>
+    <img id="preview" class="preview" alt="Selected skin image preview" hidden>
+    <p class="noimg" id="noimg">No image selected.</p>
+    <div class="row"><button class="btn sm gray" id="skinbtn" type="button">Analyze</button></div>
+    <div class="result" id="r-skin" aria-live="polite"></div>
+  </div>
+
+  <!-- ============ SYMPTOMS ============ -->
+  <div class="card panel" id="p-symptoms">
+    <h3>🩺 Symptom Checker</h3>
+    <p class="hint">Tick every symptom you have, then press Analyze.</p>
+    <input type="text" id="symsearch" class="search" placeholder="🔍 Search symptoms (e.g. fever, cough)…" aria-label="Search symptoms">
+    <div class="chips" id="chips">
+      {% for key, (label, _) in symptoms.items() %}
+        <label class="chip" data-name="{{ label|lower }}"><input type="checkbox" value="{{ key }}"><span>{{ label }}</span></label>
+      {% endfor %}
+    </div>
+    <p class="small" id="symcount">0 selected</p>
+    <div class="row"><button class="btn sm" id="symbtn" type="button">Analyze</button></div>
+    <div class="result" id="r-symptoms" aria-live="polite"></div>
+  </div>
+
+  <!-- ============ DIABETES ============ -->
+  <div class="card panel" id="p-diabetes">
+    <h3>🩸 Diabetes Risk Assessment</h3>
+    <p class="hint">Enter your details for an explainable risk estimate.</p>
+    <form class="form2" id="f-diabetes">
+      <div><label>Age (years)</label><input type="number" name="age" min="10" max="100" value="35" required></div>
+      <div><label>BMI (kg/m²)</label><input type="number" name="bmi" min="12" max="60" step="0.1" value="25" required></div>
+      <div><label>Fasting glucose (mg/dL)</label><input type="number" name="glucose" min="50" max="400" value="95" required></div>
+      <div><label>Systolic BP (mmHg)</label><input type="number" name="systolic_bp" min="80" max="220" value="120" required></div>
+      <div><label>Family history of diabetes</label><select name="family_history"><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div><label>Exercise days / week</label><input type="number" name="activity_days" min="0" max="7" value="3" required></div>
+      <div class="full row"><button class="btn sm" type="submit">Analyze</button></div>
+    </form>
+    <div class="result" id="r-diabetes" aria-live="polite"></div>
+  </div>
+
+  <!-- ============ HEART ============ -->
+  <div class="card panel" id="p-heart">
+    <h3>❤️ Heart Disease Risk</h3>
+    <p class="hint">Estimate your cardiovascular risk from common health markers.</p>
+    <form class="form2" id="f-heart">
+      <div><label>Age (years)</label><input type="number" name="age" min="10" max="100" value="45" required></div>
+      <div><label>Sex</label><select name="male"><option value="1">Male</option><option value="0">Female</option></select></div>
+      <div><label>Systolic BP (mmHg)</label><input type="number" name="systolic_bp" min="80" max="220" value="125" required></div>
+      <div><label>Total cholesterol (mg/dL)</label><input type="number" name="cholesterol" min="80" max="500" value="195" required></div>
+      <div><label>Smoker</label><select name="smoker"><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div><label>Diabetic</label><select name="diabetic"><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div><label>BMI (kg/m²)</label><input type="number" name="bmi" min="12" max="60" step="0.1" value="25" required></div>
+      <div><label>Exercise days / week</label><input type="number" name="activity_days" min="0" max="7" value="3" required></div>
+      <div class="full"><label>Family history of heart disease</label><select name="family_history"><option value="0">No</option><option value="1">Yes</option></select></div>
+      <div class="full row"><button class="btn sm" type="submit">Analyze</button></div>
+    </form>
+    <div class="result" id="r-heart" aria-live="polite"></div>
+  </div>
+
+  <p class="small" style="text-align:center;margin-top:18px">{% if current_user %}✅ Logged in - results are saved to your <a href="{{ url_for('history') }}">history</a>.{% else %}💡 <a href="{{ url_for('login') }}">Log in</a> to save your results and download reports.{% endif %}</p>
+ </div>
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>{% endblock %}

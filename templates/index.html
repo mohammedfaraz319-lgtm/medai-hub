@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<header class="hero">
+  <svg class="helix" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><radialGradient id="g"><stop offset="0" stop-color="#7cc0ff"/><stop offset="1" stop-color="#1b6fd6" stop-opacity=".2"/></radialGradient></defs>
+    {% for i in range(0, 26) %}
+      {% set x = 60 + i*44 %}
+      {% set y1 = 260 + (110 * ((i*0.55)|sin)) %}
+      {% set y2 = 260 - (110 * ((i*0.55)|sin)) %}
+      <line x1="{{ x }}" y1="{{ y1 }}" x2="{{ x }}" y2="{{ y2 }}" stroke="#3d86e0" stroke-opacity=".25"/>
+      <circle cx="{{ x }}" cy="{{ y1 }}" r="{{ 7 + (i%3)*3 }}" fill="url(#g)" style="animation-delay:{{ i*0.2 }}s"/>
+      <circle cx="{{ x }}" cy="{{ y2 }}" r="{{ 6 + (i%4)*2 }}" fill="url(#g)" style="animation-delay:{{ i*0.25 }}s"/>
+    {% endfor %}
+  </svg>
+  <h1>Intelligent Health Analysis at Your Fingertips</h1>
+  <p>Leverage advanced AI to get preliminary insights from medical scans, symptoms and health data. A powerful tool for your final year project.</p>
+  <a class="btn" href="{{ url_for('analysis') }}">Go to Analysis Hub</a>
+</header>
+
+<div class="wrap"><div class="stats">
+  <div class="stat"><b>{{ stats.diseases }}</b><span>Diseases covered</span></div>
+  <div class="stat"><b>{{ stats.symptoms }}</b><span>Symptoms understood</span></div>
+  <div class="stat"><b>5</b><span>AI modules</span></div>
+  <div class="stat"><b>24/7</b><span>Health chatbot</span></div>
+</div></div>
+
+<section>
+  <div class="wrap">
+    <div class="disclaimer">⚕️ MedAI Hub gives <b>preliminary, educational</b> insights only. It does not replace a doctor. In an emergency call your local emergency number.</div>
+    <h2 class="title">Everything in one health hub</h2>
+    <p class="sub">Five AI-powered modules that cover diagnosis support, prevention and daily wellness.</p>
+    <div class="grid g3">
+      <a class="card feat" href="{{ url_for('analysis') }}#skin"><div class="ic">🔬</div><h3>Skin Lesion Analysis</h3><p>Upload or capture a photo. The ABCD-rule engine segments the lesion and ranks likely conditions with a visual overlay.</p></a>
+      <a class="card feat" href="{{ url_for('analysis') }}#symptoms"><div class="ic">🩺</div><h3>Symptom Checker</h3><p>Pick symptoms from {{ stats.symptoms }} options. A Naive Bayes model ranks {{ stats.diseases }} diseases with precautions and the right specialist.</p></a>
+      <a class="card feat" href="{{ url_for('analysis') }}#diabetes"><div class="ic">🩸</div><h3>Diabetes Risk</h3><p>Explainable logistic-regression risk score with the factors that matter most for you.</p></a>
+      <a class="card feat" href="{{ url_for('analysis') }}#heart"><div class="ic">❤️</div><h3>Heart Risk</h3><p>Estimate cardiovascular risk from BP, cholesterol, lifestyle and family history.</p></a>
+      <a class="card feat" href="{{ url_for('chatbot_page') }}"><div class="ic">🤖</div><h3>MediBot Chatbot</h3><p>Describe how you feel in plain English; MediBot asks smart follow-up questions and predicts the condition with a confidence level.</p></a>
+      <a class="card feat" href="{{ url_for('wellness_hub') }}"><div class="ic">🥗</div><h3>Wellness Hub</h3><p>Daily workout recommendation, muscle-group exercises, diet plans, BMI and calorie calculator.</p></a>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--card)">
+  <div class="wrap">
+    <h2 class="title">How it works</h2>
+    <p class="sub">From data to insight in four steps.</p>
+    <div class="steps">
+      <div class="step"><h4>Input</h4><p>Upload a photo, tick symptoms or enter health numbers.</p></div>
+      <div class="step"><h4>Pre-process</h4><p>Cleaning, segmentation, normalisation and feature extraction.</p></div>
+      <div class="step"><h4>Predict</h4><p>ML models compute ranked predictions with confidence.</p></div>
+      <div class="step"><h4>Guide</h4><p>Precautions, specialist advice and a saved history.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="rec">
+      <h3>{{ rec.title }}</h3><p>{{ rec.text }}</p><p class="small" style="color:#dbe9ff">{{ rec.tip }}</p>
+      <p><a class="btn sec sm" href="{{ url_for('wellness_hub') }}">Open Wellness Hub</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

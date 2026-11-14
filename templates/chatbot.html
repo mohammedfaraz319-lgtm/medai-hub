@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}ChatBot{% endblock %}
+{% block body %}
+<section style="padding-top:40px"><div class="wrap">
+  <h1 class="title" style="font-size:2.1rem">HealthCare ChatBot</h1>
+  <p class="sub">Describe your symptoms in plain English. MediBot asks follow-up questions, predicts the likely disease with a confidence level and tells you which doctor to see.</p>
+  <div class="chat">
+    <div class="chat-head"><div class="avatar">🤖</div><div><b>MediBot</b><small>AI symptom assistant · online</small></div>
+      <button class="btn sm sec" style="margin-left:auto" id="resetbtn" type="button">New chat</button></div>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="quick" id="quick">
+      <button type="button">I have fever, headache and body pain</button>
+      <button type="button">Cough with phlegm and chest pain</button>
+      <button type="button">Burning while urinating</button>
+      <button type="button">Sneezing and itchy eyes</button>
+    </div>
+    <form id="cform" autocomplete="off">
+      <input type="text" id="cinput" placeholder="Type your symptoms…" maxlength="500" aria-label="Message">
+      <button class="btn sm" type="submit">Send</button>
+    </form>
+  </div>
+  <p class="small" style="text-align:center;margin-top:14px">⚕️ MediBot is not a doctor. For emergencies call 112 / 108.</p>
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>{% endblock %}

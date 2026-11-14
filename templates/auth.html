@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Create account' if mode=='register' else 'Login' }}{% endblock %}
+{% block body %}
+<section style="padding-top:50px"><div class="wrap"><div class="card auth">
+  <h2 class="title" style="font-size:1.6rem">{{ 'Create your account' if mode=='register' else 'Welcome back' }}</h2>
+  <p class="sub" style="margin-bottom:6px">{{ 'Save your analyses and download reports.' if mode=='register' else 'Log in to see your analysis history.' }}</p>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {% if mode=='register' %}<label for="name">Full name</label><input id="name" name="name" type="text" required minlength="2" autocomplete="name">{% endif %}
+    <label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email">
+    <label for="password">Password {% if mode=='register' %}<span class="small">(min 8 characters)</span>{% endif %}</label>
+    <input id="password" name="password" type="password" required {% if mode=='register' %}minlength="8"{% endif %} autocomplete="{{ 'new-password' if mode=='register' else 'current-password' }}">
+    <div class="row" style="margin-top:22px"><button class="btn" type="submit" style="width:100%">{{ 'Sign up' if mode=='register' else 'Log in' }}</button></div>
+  </form>
+  <p class="small" style="text-align:center">
+    {% if mode=='register' %}Already registered? <a href="{{ url_for('login') }}">Log in</a>{% else %}New here? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}
+  </p>
+</div></div></section>
+{% endblock %}

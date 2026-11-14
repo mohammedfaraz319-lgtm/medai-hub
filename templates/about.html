@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block body %}
+<section style="padding-top:40px"><div class="wrap">
+  <img class="banner" src="{{ url_for('static', filename='img/college-banner.jpg') }}" alt="ACS College of Engineering">
+  <h1 class="title">Medical Diagnosis System Using AI &amp; Machine Learning</h1>
+  <p class="sub">Final-year project · Department of Computer Science &amp; Engineering · Visvesvaraya Technological University (VTU)</p>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--blue)">Abstract</h3>
+    <p>The introduction of Artificial Intelligence and Machine Learning into healthcare is changing the quality, efficiency and delivery of medical services. This project presents a smart healthcare platform that uses AI and ML for disease prediction, clinical decision support and patient management. It processes patient data and diagnostic images, detects patterns, aids early diagnosis and suggests precautions and the right specialist - while keeping patient data private and secure.</p>
+  </div>
+
+  <h2 class="title" style="margin-top:50px">Project screenshots</h2>
+  <p class="sub">Interface screens from the project report.</p>
+  <div class="shots">
+    <figure><img src="{{ url_for('static', filename='img/report/shot-000.jpg') }}" alt="MedAI Hub home page" loading="lazy"><figcaption>Home - Intelligent Health Analysis at Your Fingertips</figcaption></figure>
+    <figure><img src="{{ url_for('static', filename='img/report/shot-001.jpg') }}" alt="Specialist AI Analysis Hub" loading="lazy"><figcaption>AI Analysis Hub</figcaption></figure>
+    <figure><img src="{{ url_for('static', filename='img/report/shot-002.jpg') }}" alt="AI prediction result" loading="lazy"><figcaption>MetaHub AI Prediction</figcaption></figure>
+    <figure><img src="{{ url_for('static', filename='img/report/shot-003.jpg') }}" alt="Wellness Hub" loading="lazy"><figcaption>Wellness Hub - Smart Health Tips</figcaption></figure>
+  </div>
+
+  <h2 class="title" style="margin-top:50px">Machine-learning models</h2>
+  <p class="sub">Accuracy figures come from a held-out test split of <b>synthetic</b> data generated from the project's knowledge base. They demonstrate the pipeline; they are not clinical validation.</p>
+  <div class="grid g3">
+    <div class="card"><h4 style="margin-top:0">Symptom → Disease</h4><p class="small">{{ sm.model }} · {{ sm.diseases }} diseases · {{ sm.symptoms }} symptoms</p>
+      <div class="metric"><div><b>{{ (sm.accuracy*100)|round(1) }}%</b><span>Test accuracy</span></div><div><b>{{ (sm.macro_f1*100)|round(1) }}%</b><span>Macro F1</span></div></div></div>
+    <div class="card"><h4 style="margin-top:0">Diabetes risk</h4><p class="small">{{ rm.diabetes.model }} · {{ rm.diabetes.samples }} samples</p>
+      <div class="metric"><div><b>{{ rm.diabetes.roc_auc }}</b><span>ROC-AUC</span></div></div></div>
+    <div class="card"><h4 style="margin-top:0">Heart risk</h4><p class="small">{{ rm.heart.model }} · {{ rm.heart.samples }} samples</p>
+      <div class="metric"><div><b>{{ rm.heart.roc_auc }}</b><span>ROC-AUC</span></div></div></div>
+    <div class="card"><h4 style="margin-top:0">Skin analysis</h4><p class="small">ABCD-rule image analysis (Otsu segmentation + feature scoring). Not a trained CNN - see README for how to plug in a HAM10000 model.</p></div>
+  </div>
+
+  <h2 class="title" style="margin-top:50px">Diseases covered</h2>
+  <div class="chips" style="justify-content:center">{% for d in diseases %}<span class="chip"><span style="cursor:default">{{ d }}</span></span>{% endfor %}</div>
+
+  <h2 class="title" style="margin-top:50px">Project team</h2>
+  <div class="team">
+    {% for n, usn in team %}<div class="card member"><div class="av">{{ n[0] }}</div><b>{{ n }}</b><span>{{ usn }}</span></div>{% endfor %}
+  </div>
+  <p class="sub" style="margin-top:22px">Under the guidance of <b>Mr. Charan M S</b>, Asst. Prof., Dept. of CSE, ACSCE · HOD: <b>Dr. Nanda Gopal S M</b></p>
+</div></section>
+{% endblock %}
