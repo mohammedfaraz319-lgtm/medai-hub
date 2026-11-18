@@ -1,4 +1,5 @@
 # 🩺 MedAI Hub - Medical Diagnosis System using AI & Machine Learning
+*Research Paper:* [Medical Diagnosis System Using Artificial Intelligence and Machine Learning](MEDICAL%20DIAGNOSIS%20SYSTEM%20USING%20ARTIFICIAL%20INTELLIGENCE%20AND%20MACHINE%20LEARNING.pdf)
 
 > Final-year project · Dept. of Computer Science & Engineering · ACS College of Engineering (VTU, Belagavi)
 > **Team:** Mohammed Faraz (1AH22CS064) · Mohammed Saifulla (1AH22CS105) · Mohammed Ayaan (1AH23CS409) · Kashinath (1AH22CS070)
